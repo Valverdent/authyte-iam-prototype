@@ -1,0 +1,272 @@
+/* ==========================================================================
+   AUTHYTE IAM - MICROSOFT FLUENT UI DESIGN SYSTEM STYLESHEET
+   ========================================================================== */
+
+/* 1. Estilos Globales y Lienzo */
+body {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #f3f2f1;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* 2. Tarjeta Contenedora Principal */
+.main-card {
+    background: #ffffff;
+    padding: 2.5rem 2rem;
+    border-radius: 8px;
+    box-shadow: 0 1.6px 3.6px 0 rgba(0, 0, 0, 0.132), 0 0.3px 0.9px 0 rgba(0, 0, 0, 0.108);
+    width: 100%;
+    max-width: 440px;
+    transition: max-width 0.3s ease;
+    box-sizing: border-box;
+}
+
+.main-card.wide {
+    max-width: 980px;
+}
+
+/* 3. Control de Vistas */
+.view { 
+    display: none; 
+}
+
+.view.active { 
+    display: block; 
+}
+
+/* 4. Encabezados y Subtítulos */
+h2 { 
+    margin-top: 0; 
+    color: #201f1e; 
+    font-weight: 600; 
+    text-align: center; 
+}
+
+p.subtitle { 
+    color: #605e5c; 
+    font-size: 14px; 
+    margin-bottom: 20px; 
+    text-align: center; 
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e1dfdd;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.panel-header h2 { 
+    margin: 0; 
+}
+
+.panel-header .btn { 
+    width: auto; 
+}
+
+/* 5. Controles de Formulario */
+.form-group {
+    margin-bottom: 16px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #201f1e;
+    margin-bottom: 4px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #8a8886;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+    background-color: #ffffff;
+    color: #201f1e;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus, 
+select:focus {
+    border-color: #0078d4;
+    box-shadow: 0 0 0 1px #0078d4;
+}
+
+/* 6. Botones Estilo Fluent UI */
+.btn {
+    width: 100%;
+    padding: 8px 16px;
+    margin: 6px 0;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    box-sizing: border-box;
+    transition: background-color 0.15s, border-color 0.15s;
+}
+
+.btn-accent {
+    background-color: #0078d4;
+    color: #ffffff;
+    border: 1px solid #0078d4;
+}
+
+.btn-accent:hover {
+    background-color: #005a9e;
+    border-color: #005a9e;
+}
+
+.btn-neutral {
+    background-color: #f3f2f1;
+    color: #201f1e;
+    border: 1px solid #8a8886;
+}
+
+.btn-neutral:hover {
+    background-color: #edebe9;
+}
+
+.btn:disabled {
+    background-color: #f3f2f1 !important;
+    color: #a19f9d !important;
+    border-color: #c8c6c4 !important;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.btn-text {
+    background: none;
+    color: #0078d4;
+    font-size: 14px;
+    margin-top: 10px;
+    border: none;
+    text-decoration: underline;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+}
+
+.btn-text:hover { 
+    color: #004578; 
+}
+
+/* 7. Notificaciones y Alertas */
+.alert {
+    padding: 10px 14px;
+    border-radius: 4px;
+    font-size: 13px;
+    margin-bottom: 15px;
+    display: none;
+    text-align: left;
+}
+
+.alert-error { 
+    background-color: #fde7e9; 
+    color: #a80000; 
+    border: 1px solid #fbc2c4; 
+}
+
+.alert-success { 
+    background-color: #dff6dd; 
+    color: #107c41; 
+    border: 1px solid #b1e5b2; 
+}
+
+/* 8. Tarjeta de Perfil de Usuario */
+.user-profile-card {
+    background-color: #faf9f8;
+    border: 1px solid #e1dfdd;
+    border-radius: 6px;
+    padding: 16px;
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.profile-item {
+    margin-bottom: 12px;
+    font-size: 14px;
+    color: #201f1e;
+    border-bottom: 1px solid #f3f2f1;
+    padding-bottom: 8px;
+}
+
+.profile-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+/* 9. Tabla de Administración de Usuarios */
+.table-responsive { 
+    overflow-x: auto; 
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+th, td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #e1dfdd;
+    font-size: 13px;
+}
+
+th { 
+    background-color: #faf9f8; 
+    color: #201f1e; 
+    font-weight: 600; 
+}
+
+.actions-cell { 
+    white-space: nowrap; 
+}
+
+/* 10. Etiquetas (Badges) */
+.badge {
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.badge-admin { 
+    background-color: #deecf9; 
+    color: #004578; 
+}
+
+.badge-user { 
+    background-color: #f3f2f1; 
+    color: #323130; 
+}
+
+.badge-active { 
+    background-color: #dff6dd; 
+    color: #107c41; 
+}
+
+.badge-inactive { 
+    background-color: #fde7e9; 
+    color: #a80000; 
+}
