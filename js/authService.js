@@ -72,6 +72,13 @@ export const AuthService = {
 
     logout() {
         sessionStorage.removeItem(this.SESSION_KEY);
+        
+        if (window.showAlert) {
+            window.showAlert('Has cerrado sesión correctamente.', 'success');
+        }
+        if (window.switchView) {
+            window.switchView('view-home');
+        }
     },
 
     toggleUserStatus(userId) {
