@@ -1,10 +1,7 @@
 import { DataLayer } from './dataLayer.js';
 import { SecurityService } from './security.js';
 
-
-// ==========================================
-// Funciones de Validación Sintáctica
-// ==========================================
+// Validaciones Sintácticas
 function validarIdentificacion(tipo, identificacion) {
     const limpia = identificacion.trim().replace(/[-\s]/g, '');
 
@@ -33,9 +30,6 @@ function validarPasswordSegura(password) {
     return regexPass.test(password);
 }
 
-// ========================================
-// Servicio Autenticación
-// ========================================
 export const AuthService = {
     SESSION_KEY: 'authyte_active_session',
 
@@ -47,34 +41,24 @@ export const AuthService = {
     async registerUser(tipoDoc, cedula, nombre, correo, password, confirmPassword, rol = 'Usuario Estándar') {
         const cedulaLimpia = cedula.trim().replace(/[-\s]/g, '');
 
-        // 1. Validar Tipo e Identificación (Cédula, DIMEX, Pasaporte)
         if (!validarIdentificacion(tipoDoc, cedulaLimpia)) {
             throw new Error(`El número de ${tipoDoc} no posee un formato válido.`);
         }
-
-        // 2. Validar Nombre en Español (letras, tildes, ñ)
         if (!validarNombreEspaniol(nombre)) {
             throw new Error('El nombre solo debe contener caracteres alfabéticos en español.');
         }
-
-        // 3. Validar Correo Electrónico
         if (!validarEmail(correo)) {
             throw new Error('El correo electrónico no posee un formato válido.');
         }
-
-        // 4. Validar Coincidencia de Contraseñas
         if (password !== confirmPassword) {
             throw new Error('Las contraseñas no coinciden.');
         }
-
-        // 5. Validar Fortaleza de Contraseña (mín 9 chars, mayúscula, minúscula, número y especial)
         if (!validarPasswordSegura(password)) {
             throw new Error('La contraseña debe tener al menos 9 caracteres, incluir una mayúscula, una minúscula, un número y un carácter especial (@$!%*?&._-#).');
         }
 
         const users = DataLayer.getUsers();
 
-        // Validar duplicados en la base de datos
         if (users.some(u => u.cedula === cedulaLimpia)) {
             throw new Error('El número de documento ya se encuentra registrado.');
         }
@@ -82,7 +66,6 @@ export const AuthService = {
             throw new Error('El correo electrónico ya se encuentra registrado.');
         }
 
-        // Generar Hash SHA-256
         const passwordHash = await SecurityService.hashPassword(password);
 
         const newUser = {
@@ -130,13 +113,6 @@ export const AuthService = {
 
     logout() {
         sessionStorage.removeItem(this.SESSION_KEY);
-        
-        if (window.showAlert) {
-            window.showAlert('Has cerrado sesión correctamente.', 'success');
-        }
-        if (window.switchView) {
-            window.switchView('view-home');
-        }
     },
 
     toggleUserStatus(userId) {
@@ -150,23 +126,6 @@ export const AuthService = {
             if (currentUser && currentUser.id === userId && user.estado === 'Inactivo') {
                 this.logout();
             }
-            return user;
-        }
-        throw new Error('Usuario no encontrado.');
-    },
-
-    toggleUserRole(userId) {
-        const currentUser = this.getCurrentUser();
-        const users = DataLayer.getUsers();
-        const user = users.find(u => u.id === userId);
-
-        if (currentUser && (currentUser.id === userId || currentUser.correo === user?.correo)) {
-            throw new Error('No puedes modificar tu propio rol de administrador.');
-        }
-
-        if (user) {
-            user.rol = user.rol === 'Administrador' ? 'Usuario Estándar' : 'Administrador';
-            DataLayer.saveUsers(users);
             return user;
         }
         throw new Error('Usuario no encontrado.');

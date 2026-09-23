@@ -1,5 +1,3 @@
-import { SecurityService } from './security.js';
-
 export const DataLayer = {
     STORAGE_KEY: 'authyte_users',
 
@@ -12,7 +10,7 @@ export const DataLayer = {
         localStorage.setItem(this.STORAGE_KEY, JSON.stringify(users));
     },
 
-    async seedInitialData() {
+    async seedInitialData(SecurityService) {
         if (this.getUsers().length === 0) {
             const defaultAdminPass = await SecurityService.hashPassword('Admin123!');
             const defaultUserPass = await SecurityService.hashPassword('User123!');
