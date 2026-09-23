@@ -129,5 +129,49 @@ export const AuthService = {
             return user;
         }
         throw new Error('Usuario no encontrado.');
+    },
+
+    toggleUserRole(userId) {
+        const currentUser = this.getCurrentUser();
+        const users = DataLayer.getUsers();
+        const user = users.find(u => u.id === userId);
+
+        // Protección: impedir que el administrador modifique su propio rol
+        if (currentUser && (currentUser.id === userId || currentUser.correo.toLowerCase() === user?.correo.toLowerCase())) {
+            throw new Error('No puedes modificar tu propio rol de administrador.');
+        }
+
+        if (user) {
+            user.rol = user.rol === 'Administrador' ? 'Usuario Estándar' : 'Administrador';
+            DataLayer.saveUsers(users);
+            return user;
+        }
+        throw new Error('Usuario no encontrado.');
+    },
+
+    deleteUser(userId) {
+        const currentUser = this.getCurrentUser();
+        const users = DataLayer.getUsers();
+        const userIndex = users.findIndex(u => u.id === userId);
+
+        if (userIndex === -1) {
+            throw new Error('Usuario no encontrado.');
+        }
+
+        const user = users[userIndex];
+
+        // Protección: no eliminar la sesión activa
+        if (currentUser && (currentUser.id === userId || currentUser.correo.toLowerCase() === user.correo.toLowerCase())) {
+            throw new Error('No puedes eliminar tu propia cuenta de sesión activa.');
+        }
+
+        // Regla de Negocio: solo eliminar si el usuario está inactivo
+        if (user.estado !== 'Inactivo') {
+            throw new Error('Solo se pueden eliminar permanentemente aquellos usuarios que se encuentren desactivados.');
+        }
+
+        users.splice(userIndex, 1);
+        DataLayer.saveUsers(users);
+        return user;
     }
 };
