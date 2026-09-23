@@ -3,24 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Authyte - IAM Fluent UI Prototype</title>
-    <!-- Vinculación del CSS separado -->
+    <title>Authyte - IAM Fluent UI</title>
+
+    <!-- 1. Import Map: Le enseña al navegador dónde encontrar las librerías de Microsoft -->
+    <script type="importmap">
+    {
+      "imports": {
+        "@fluentui/web-components": "https://esm.sh/@fluentui/web-components@2.6.1",
+        "@microsoft/fast-element": "https://esm.sh/@microsoft/fast-element@2.0.0"
+      }
+    }
+    </script>
+
+    <!-- 2. Registro de los Componentes Oficiales de Microsoft Fluent UI -->
+    <script type="module">
+      import { allComponents, provideFluentDesignSystem } from '@fluentui/web-components';
+
+      // Importante: 'allComponents' va SIN paréntesis ()
+      provideFluentDesignSystem().register(allComponents);
+    </script>
+
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
-    <div class="main-card" id="main-card">
+    <fluent-card class="main-card" id="main-card">
         
-        <!-- Notificaciones globales -->
+        <!-- Alertas globales -->
         <div id="global-alert" class="alert"></div>
 
         <!-- ================= VISTA: INICIO ================= -->
         <div id="view-home" class="view active">
             <h2>Authyte IAM</h2>
-            <p class="subtitle">Sistema de Autenticación y Control de Acceso</p>
+            <p class="subtitle">Sistema de Autenticación y Control de Acceso (Microsoft Fluent UI)</p>
             
-            <button class="btn btn-accent" onclick="switchView('view-login')">Iniciar Sesión</button>
-            <button class="btn btn-neutral" onclick="switchView('view-signup')">Registrarse</button>
+            <fluent-button appearance="accent" onclick="switchView('view-login')">Iniciar Sesión</fluent-button>
+            <fluent-button appearance="neutral" onclick="switchView('view-signup')">Registrarse</fluent-button>
         </div>
 
         <!-- ================= VISTA: LOGIN (CU-01) ================= -->
@@ -28,157 +46,71 @@
             <h2>Iniciar Sesión</h2>
             <p class="subtitle">Ingresa con tus credenciales de acceso</p>
             <form id="form-login" onsubmit="handleLogin(event)">
-                <div class="form-group">
-                    <label for="login-email">Correo Electrónico</label>
-                    <input type="email" id="login-email" placeholder="Correo Electrónico" required>
-                </div>
-                <div class="form-group">
-                    <label for="login-password">Contraseña</label>
-                    <input type="password" id="login-password" placeholder="Contraseña" required>
-                </div>
+                <fluent-text-field id="login-email" type="email" placeholder="ejemplo@correo.com" required>Correo Electrónico</fluent-text-field>
+                <fluent-text-field id="login-password" type="password" placeholder="••••••••" required>Contraseña</fluent-text-field>
                 
-                <button type="submit" class="btn btn-accent">Entrar</button>
+                <fluent-button type="submit" appearance="accent">Entrar</fluent-button>
             </form>
             
             <button class="btn-text" onclick="switchView('view-recover')">¿Olvidaste tu contraseña?</button>
-            <button class="btn btn-neutral" onclick="switchView('view-home')">Volver al Inicio</button>
+            <fluent-button appearance="neutral" onclick="switchView('view-home')">Volver al Inicio</fluent-button>
         </div>
 
         <!-- ================= VISTA: REGISTRO (CU-02) ================= -->
         <div id="view-signup" class="view">
             <h2>Crear Cuenta</h2>
+            <p class="subtitle">Ingresa tus datos e identificación oficial</p>
             <form id="form-signup" onsubmit="handleRegister(event, 'Usuario Estándar')">
                 <div class="form-group">
-                    <label for="signup-tipo-doc">Tipo de Documento</label>
-                    <select id="signup-tipo-doc">
-                        <option value="Cédula">Cédula de Identidad</option>
-                        <option value="DIMEX">DIMEX</option>
-                        <option value="Pasaporte">Pasaporte</option>
-                    </select>
+                    <label class="fluent-label">Tipo de Documento</label>
+                    <fluent-select id="signup-tipo-doc">
+                        <fluent-option value="Cédula">Cédula de Identidad</fluent-option>
+                        <fluent-option value="DIMEX">DIMEX</fluent-option>
+                        <fluent-option value="Pasaporte">Pasaporte</fluent-option>
+                    </fluent-select>
                 </div>
-                <div class="form-group">
-                    <label for="signup-cedula">Identificación</label>
-                    <input type="text" id="signup-cedula" placeholder="102340567 (sin guiones)" required>
-                </div>
-                <div class="form-group">
-                    <label for="signup-name">Nombre Completo</label>
-                    <input type="text" id="signup-name" placeholder="Juan Pérez Mora" required>
-                </div>
-                <div class="form-group">
-                    <label for="signup-email">Correo Electrónico</label>
-                    <input type="email" id="signup-email" placeholder="juan@correo.com" required>
-                </div>
-                <div class="form-group">
-                    <label for="signup-password">Contraseña</label>
-                    <input type="password" id="signup-password" placeholder="Ejemplo: Password123!" required>
-                </div>
-                <div class="form-group">
-                    <label for="signup-confirm">Confirmar Contraseña</label>
-                    <input type="password" id="signup-confirm" placeholder="Repite tu contraseña" required>
-                </div>
+
+                <fluent-text-field id="signup-cedula" placeholder="102340567 (sin guiones)" required>Número de Documento</fluent-text-field>
+                <fluent-text-field id="signup-name" placeholder="Juan Pérez Mora" required>Nombre Completo</fluent-text-field>
+                <fluent-text-field id="signup-email" type="email" placeholder="juan@correo.com" required>Correo Electrónico</fluent-text-field>
+                <fluent-text-field id="signup-password" type="password" placeholder="••••••••" required>Contraseña</fluent-text-field>
+                <fluent-text-field id="signup-confirm" type="password" placeholder="Repite tu contraseña" required>Confirmar Contraseña</fluent-text-field>
                 
-                <button type="submit" class="btn btn-accent">Registrarse</button>
+                <fluent-button type="submit" appearance="accent">Registrarse</fluent-button>
             </form>
-            <button class="btn btn-neutral" onclick="switchView('view-home')">Volver al Inicio</button>
-        </div>
-
-        <!-- ================= VISTA: REGISTRO ADMIN (CU-07) ================= -->
-        <div id="view-admin-signup" class="view">
-            <h2>Crear Usuario (Admin)</h2>
-            <p class="subtitle">Creación directa de cuentas con asignación de rol</p>
-            <form id="form-admin-signup" onsubmit="handleRegister(event)">
-                <div class="form-group">
-                    <label for="admin-signup-tipo-doc">Tipo de Documento</label>
-                    <select id="admin-signup-tipo-doc">
-                        <option value="Cédula">Cédula de Identidad</option>
-                        <option value="DIMEX">DIMEX</option>
-                        <option value="Pasaporte">Pasaporte</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="admin-signup-cedula">Cédula / Identificación</label>
-                    <input type="text" id="admin-signup-cedula" placeholder="Cédula costarricense" required>
-                </div>
-                <div class="form-group">
-                    <label for="admin-signup-name">Nombre Completo</label>
-                    <input type="text" id="admin-signup-name" placeholder="Nombre en español" required>
-                </div>
-                <div class="form-group">
-                    <label for="admin-signup-email">Correo Electrónico</label>
-                    <input type="email" id="admin-signup-email" placeholder="usuario@empresa.com" required>
-                </div>
-                <div class="form-group">
-                    <label for="admin-signup-role">Rol del Usuario</label>
-                    <select id="admin-signup-role">
-                        <option value="Usuario Estándar">Usuario Estándar</option>
-                        <option value="Administrador">Administrador</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="admin-signup-password">Contraseña Inicial</label>
-                    <input type="password" id="admin-signup-password" required>
-                </div>
-                <div class="form-group">
-                    <label for="admin-signup-confirm">Confirmar Contraseña</label>
-                    <input type="password" id="admin-signup-confirm" required>
-                </div>
-                
-                <button type="submit" class="btn btn-accent">Registrar Usuario</button>
-            </form>
-            <button class="btn btn-neutral" onclick="switchView('view-admin')">Cancelar y Volver</button>
-        </div>
-
-        <!-- ================= VISTA: ACCESO DENEGADO ================= -->
-        <div id="view-denied" class="view">
-            <h2 style="color: #a80000;">Acceso Denegado</h2>
-            <p class="subtitle">No cuenta con los permisos requeridos (Rol Administrador) para acceder a este módulo.</p>
-            <button class="btn btn-accent" onclick="switchView('view-login')">Iniciar Sesión con otra cuenta</button>
-            <button class="btn btn-neutral" onclick="switchView('view-home')">Volver al Inicio</button>
-        </div>
-
-        <!-- ================= VISTA: RECUPERAR CONTRASEÑA ================= -->
-        <div id="view-recover" class="view">
-            <h2>Recuperar Contraseña</h2>
-            <p class="subtitle">Te enviaremos las instrucciones a tu correo registrado.</p>
-            <form onsubmit="event.preventDefault(); showAlert('Se ha enviado un enlace de recuperación si el correo existe.', 'success');">
-                <div class="form-group">
-                    <label>Correo Electrónico</label>
-                    <input type="email" placeholder="correo@ejemplo.com" required>
-                </div>
-                <button type="submit" class="btn btn-accent">Enviar Enlace</button>
-            </form>
-            <button class="btn btn-neutral" onclick="switchView('view-login')">Volver al Login</button>
+            <fluent-button appearance="neutral" onclick="switchView('view-home')">Volver al Inicio</fluent-button>
         </div>
 
         <!-- ================= VISTA: PANEL DE USUARIO ESTÁNDAR ================= -->
         <div id="view-user-panel" class="view">
             <div class="panel-header">
                 <h2>Mi Perfil</h2>
+                <fluent-button appearance="neutral" onclick="logout()">Cerrar Sesión</fluent-button>
             </div>
             
             <p class="subtitle" style="text-align: left;">Información personal asociada a la cuenta:</p>
 
             <div class="user-profile-card">
                 <div class="profile-item"><strong>Tipo de Documento:</strong> <span id="user-profile-tipo-doc">-</span></div>
-                <div class="profile-item"><strong>Identificación:</strong> <span id="user-profile-cedula">-</span></div>
+                <div class="profile-item"><strong>Número de Identificación:</strong> <span id="user-profile-cedula">-</span></div>
                 <div class="profile-item"><strong>Nombre Completo:</strong> <span id="user-profile-nombre">-</span></div>
                 <div class="profile-item"><strong>Correo Electrónico:</strong> <span id="user-profile-correo">-</span></div>
                 <div class="profile-item"><strong>Rol:</strong> <span id="user-profile-rol">-</span></div>
                 <div class="profile-item"><strong>Estado:</strong> <span id="user-profile-estado">-</span></div>
             </div>
 
-            <button class="btn btn-neutral" onclick="AuthService.logout()">Cerrar Sesión</button>
+            <fluent-button appearance="neutral" onclick="logout()">Cerrar Sesión</fluent-button>
         </div>
 
         <!-- ================= VISTA: PANEL DE ADMINISTRACIÓN ================= -->
         <div id="view-admin" class="view">
             <div class="panel-header">
                 <h2>Gestión de Usuarios</h2>
-                <button class="btn btn-neutral" onclick="AuthService.logout()">Cerrar Sesión</button>
+                <fluent-button appearance="neutral" onclick="logout()">Cerrar Sesión</fluent-button>
             </div>
             
             <div style="text-align: left; margin-bottom: 15px;">
-                <button class="btn btn-accent" style="width: auto;" onclick="switchView('view-admin-signup')">+ Crear Nuevo Usuario</button>
+                <fluent-button appearance="accent" style="width: auto;" onclick="switchView('view-admin-signup')">+ Crear Nuevo Usuario</fluent-button>
             </div>
 
             <div class="table-responsive">
@@ -201,10 +133,62 @@
             </div>
         </div>
 
-    </div>
+        <!-- ================= VISTA: REGISTRO ADMIN (CU-07) ================= -->
+        <div id="view-admin-signup" class="view">
+            <h2>Crear Usuario (Admin)</h2>
+            <p class="subtitle">Creación directa de cuentas con asignación de rol</p>
+            <form id="form-admin-signup" onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label class="fluent-label">Tipo de Documento</label>
+                    <fluent-select id="admin-signup-tipo-doc">
+                        <fluent-option value="Cédula">Cédula de Identidad</fluent-option>
+                        <fluent-option value="DIMEX">DIMEX</fluent-option>
+                        <fluent-option value="Pasaporte">Pasaporte</fluent-option>
+                    </fluent-select>
+                </div>
 
-    <!-- Vinculación del controlador principal JS como Módulo ES6 -->
+                <fluent-text-field id="admin-signup-cedula" placeholder="Número de documento" required>Número de Documento</fluent-text-field>
+                <fluent-text-field id="admin-signup-name" placeholder="Nombre en español" required>Nombre Completo</fluent-text-field>
+                <fluent-text-field id="admin-signup-email" type="email" placeholder="usuario@empresa.com" required>Correo Electrónico</fluent-text-field>
+                
+                <div class="form-group">
+                    <label class="fluent-label">Rol del Usuario</label>
+                    <fluent-select id="admin-signup-role">
+                        <fluent-option value="Usuario Estándar">Usuario Estándar</fluent-option>
+                        <fluent-option value="Administrador">Administrador</fluent-option>
+                    </fluent-select>
+                </div>
+
+                <fluent-text-field id="admin-signup-password" type="password" required>Contraseña Inicial</fluent-text-field>
+                <fluent-text-field id="admin-signup-confirm" type="password" required>Confirmar Contraseña</fluent-text-field>
+                
+                <fluent-button type="submit" appearance="accent">Registrar Usuario</fluent-button>
+            </form>
+            <fluent-button appearance="neutral" onclick="switchView('view-admin')">Cancelar y Volver</fluent-button>
+        </div>
+
+        <!-- ================= VISTA: ACCESO DENEGADO ================= -->
+        <div id="view-denied" class="view">
+            <h2 style="color: #a80000;">Acceso Denegado</h2>
+            <p class="subtitle">No cuentas con los permisos requeridos (Rol Administrador) para acceder a este módulo.</p>
+            <fluent-button appearance="accent" onclick="switchView('view-login')">Iniciar Sesión con otra cuenta</fluent-button>
+            <fluent-button appearance="neutral" onclick="switchView('view-home')">Volver al Inicio</fluent-button>
+        </div>
+
+        <!-- ================= VISTA: RECUPERAR CONTRASEÑA ================= -->
+        <div id="view-recover" class="view">
+            <h2>Recuperar Contraseña</h2>
+            <p class="subtitle">Te enviaremos las instrucciones a tu correo registrado.</p>
+            <form onsubmit="event.preventDefault(); showAlert('Se ha enviado un enlace de recuperación si el correo existe.', 'success');">
+                <fluent-text-field type="email" placeholder="correo@ejemplo.com" required>Correo Electrónico</fluent-text-field>
+                <fluent-button type="submit" appearance="accent">Enviar Enlace</fluent-button>
+            </form>
+            <fluent-button appearance="neutral" onclick="switchView('view-login')">Volver al Login</fluent-button>
+        </div>
+
+    </fluent-card>
+
+    <!-- Carga del Controlador de la Aplicación -->
     <script type="module" src="js/app.js"></script>
-
 </body>
 </html>

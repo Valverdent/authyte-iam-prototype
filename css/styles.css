@@ -1,8 +1,4 @@
-/* ==========================================================================
-   AUTHYTE IAM - MICROSOFT FLUENT UI DESIGN SYSTEM STYLESHEET
-   ========================================================================== */
-
-/* 1. Estilos Globales y Lienzo */
+/* Estilos generales Fluent UI */
 body {
     font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
     display: flex;
@@ -15,32 +11,47 @@ body {
     box-sizing: border-box;
 }
 
-/* 2. Tarjeta Contenedora Principal */
-.main-card {
-    background: #ffffff;
+fluent-card.main-card {
     padding: 2.5rem 2rem;
-    border-radius: 8px;
-    box-shadow: 0 1.6px 3.6px 0 rgba(0, 0, 0, 0.132), 0 0.3px 0.9px 0 rgba(0, 0, 0, 0.108);
     width: 100%;
     max-width: 440px;
     transition: max-width 0.3s ease;
+    background: #ffffff;
+    border-radius: 8px;
     box-sizing: border-box;
 }
 
-.main-card.wide {
+fluent-card.main-card.wide {
     max-width: 980px;
 }
 
-/* 3. Control de Vistas */
-.view { 
-    display: none; 
+.view { display: none; }
+.view.active { display: block; }
+
+fluent-text-field, fluent-select {
+    width: 100%;
+    margin-bottom: 14px;
+    text-align: left;
 }
 
-.view.active { 
-    display: block; 
+fluent-button {
+    width: 100%;
+    margin: 6px 0;
 }
 
-/* 4. Encabezados y Subtítulos */
+.form-group {
+    text-align: left;
+    margin-bottom: 14px;
+}
+
+.fluent-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #201f1e;
+    margin-bottom: 4px;
+}
+
 h2 { 
     margin-top: 0; 
     color: #201f1e; 
@@ -63,134 +74,9 @@ p.subtitle {
     padding-bottom: 15px;
     margin-bottom: 20px;
 }
+.panel-header h2 { margin: 0; }
+.panel-header fluent-button { width: auto; }
 
-.panel-header h2 { 
-    margin: 0; 
-}
-
-.panel-header .btn { 
-    width: auto; 
-}
-
-/* 5. Controles de Formulario */
-.form-group {
-    margin-bottom: 16px;
-    text-align: left;
-}
-
-.form-group label {
-    display: block;
-    font-size: 13px;
-    font-weight: 600;
-    color: #201f1e;
-    margin-bottom: 4px;
-}
-
-input[type="text"],
-input[type="email"],
-input[type="password"],
-select {
-    width: 100%;
-    padding: 8px 10px;
-    border: 1px solid #8a8886;
-    border-radius: 4px;
-    box-sizing: border-box;
-    font-size: 14px;
-    font-family: inherit;
-    outline: none;
-    background-color: #ffffff;
-    color: #201f1e;
-    transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-input:focus, 
-select:focus {
-    border-color: #0078d4;
-    box-shadow: 0 0 0 1px #0078d4;
-}
-
-/* 6. Botones Estilo Fluent UI */
-.btn {
-    width: 100%;
-    padding: 8px 16px;
-    margin: 6px 0;
-    border-radius: 4px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    font-family: inherit;
-    box-sizing: border-box;
-    transition: background-color 0.15s, border-color 0.15s;
-}
-
-.btn-accent {
-    background-color: #0078d4;
-    color: #ffffff;
-    border: 1px solid #0078d4;
-}
-
-.btn-accent:hover {
-    background-color: #005a9e;
-    border-color: #005a9e;
-}
-
-.btn-neutral {
-    background-color: #f3f2f1;
-    color: #201f1e;
-    border: 1px solid #8a8886;
-}
-
-.btn-neutral:hover {
-    background-color: #edebe9;
-}
-
-.btn:disabled {
-    background-color: #f3f2f1 !important;
-    color: #a19f9d !important;
-    border-color: #c8c6c4 !important;
-    cursor: not-allowed;
-    opacity: 0.7;
-}
-
-.btn-text {
-    background: none;
-    color: #0078d4;
-    font-size: 14px;
-    margin-top: 10px;
-    border: none;
-    text-decoration: underline;
-    cursor: pointer;
-    width: 100%;
-    text-align: center;
-}
-
-.btn-text:hover { 
-    color: #004578; 
-}
-
-/* 7. Notificaciones y Alertas */
-.alert {
-    padding: 10px 14px;
-    border-radius: 4px;
-    font-size: 13px;
-    margin-bottom: 15px;
-    display: none;
-    text-align: left;
-}
-
-.alert-error { 
-    background-color: #fde7e9; 
-    color: #a80000; 
-    border: 1px solid #fbc2c4; 
-}
-
-.alert-success { 
-    background-color: #dff6dd; 
-    color: #107c41; 
-    border: 1px solid #b1e5b2; 
-}
-
-/* 8. Tarjeta de Perfil de Usuario */
 .user-profile-card {
     background-color: #faf9f8;
     border: 1px solid #e1dfdd;
@@ -214,10 +100,18 @@ select:focus {
     padding-bottom: 0;
 }
 
-/* 9. Tabla de Administración de Usuarios */
-.table-responsive { 
-    overflow-x: auto; 
+.alert {
+    padding: 10px 14px;
+    border-radius: 4px;
+    font-size: 13px;
+    margin-bottom: 15px;
+    display: none;
+    text-align: left;
 }
+.alert-error { background-color: #fde7e9; color: #a80000; border: 1px solid #fbc2c4; }
+.alert-success { background-color: #dff6dd; color: #107c41; border: 1px solid #b1e5b2; }
+
+.table-responsive { overflow-x: auto; }
 
 table {
     width: 100%;
@@ -232,41 +126,19 @@ th, td {
     font-size: 13px;
 }
 
-th { 
-    background-color: #faf9f8; 
-    color: #201f1e; 
-    font-weight: 600; 
-}
+th { background-color: #faf9f8; color: #201f1e; font-weight: 600; }
 
-.actions-cell { 
-    white-space: nowrap; 
-}
+.actions-cell { white-space: nowrap; }
 
-/* 10. Etiquetas (Badges) */
-.badge {
-    padding: 2px 8px;
-    border-radius: 12px;
-    font-size: 11px;
-    font-weight: 600;
-    display: inline-block;
+.btn-text {
+    background: none;
+    color: #0078d4;
+    font-size: 14px;
+    margin-top: 10px;
+    border: none;
+    text-decoration: underline;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
 }
-
-.badge-admin { 
-    background-color: #deecf9; 
-    color: #004578; 
-}
-
-.badge-user { 
-    background-color: #f3f2f1; 
-    color: #323130; 
-}
-
-.badge-active { 
-    background-color: #dff6dd; 
-    color: #107c41; 
-}
-
-.badge-inactive { 
-    background-color: #fde7e9; 
-    color: #a80000; 
-}
+.btn-text:hover { color: #004578; }
